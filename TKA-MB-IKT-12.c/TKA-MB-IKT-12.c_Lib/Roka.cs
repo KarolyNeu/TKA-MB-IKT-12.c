@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TKA_MB_IKT_12.c_Lib
 {
-    public class Korok
+    public class Roka
     {
     }
 }
