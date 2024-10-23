@@ -354,7 +354,6 @@ static void MozgasMetodus(Entity[,] JatekMezo, Entity entity, int x, int y)
     JatekMezo[newX, newY] = entity;
 }
 #endregion
-2 rész
 #region Róka szimulációs lépés
 static void RokaLepes(Entity[,] JatekMezo, Roka roka, int x, int y)
 {
@@ -392,5 +391,62 @@ static void RokaSzaporod(Entity[,] JatekMezo, Roka roka, int x, int y)
         Console.WriteLine("Egy új róka született.");  // Logolás
         roka.korcsokkenes(); // Az új róka születésekor a szülő róka jóllakottsága csökken
     }
+}
+#endregion
+#region Róka eszik nyulat
+static bool ProbaNyulEves(Entity[,] JatekMezo, int x, int y)
+{
+    int Sorok = JatekMezo.GetLength(0);
+    int Oszlopok = JatekMezo.GetLength(1);
+
+    for (int i = Math.Max(0, x - 2); i <= Math.Min(x + 2, Sorok - 1); i++)
+    {
+        for (int j = Math.Max(0, y - 2); j <= Math.Min(y + 2, Oszlopok - 1); j++)
+        {
+            if (JatekMezo[i, j] is Nyul)
+            {
+                JatekMezo[i, j] = null;
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+#endregion
+#region Nyúl szaporodása
+static void NyulSzaporod(Entity[,] JatekMezo, Nyul nyul, int x, int y)
+{
+    int UresXMezo, UresYMezo;
+    UresMezoKeres(JatekMezo, x, y, out UresXMezo, out UresYMezo);
+
+    if (JatekMezo[UresXMezo, UresYMezo] == null && nyul.eletero >= 5)
+    {
+        Nyul newNyul = new Nyul(2);
+        JatekMezo[UresXMezo, UresYMezo] = newNyul;
+        Console.WriteLine("Egy új nyúl született.");  // Logolás
+        Thread.Sleep(3000);
+        nyul.korcsokkenes(); // Az új nyúl születésekor a szülő nyúl jóllakottsága csökken
+    }
+}
+#endregion
+
+#region Nyúl szimulációs lépés
+static void NyulLepes(Entity[,] JatekMezo, Nyul nyul, int x, int y)
+{
+    MozgasMetodus(JatekMezo, nyul, x, y);
+
+    if (nyul.eletero > 0)
+    {
+        if (JatekMezo[x, y] is Fu fu)
+        {
+            Nyul.FuEves(nyul);
+            Fu.FuEltunes(fu);
+        }
+    }
+
+    nyul.korcsokkenes();
+
+    NyulSzaporod(JatekMezo, nyul, x, y);
 }
 #endregion
