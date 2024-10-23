@@ -1,33 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SzimulacioTKAMBSLib
+﻿namespace SzimulacioTKAMBSLib
 {
-    internal class Nyul : Entity
+    public class Nyul : Entity
     {
         public Nyul(int eletero)
         {
-            this.NyulEletero = eletero;
+            this.eletero = eletero;
         }
 
         public static void FuEves(Nyul nyul)
         {
-            nyul.NyulEletero++;
+            nyul.eletero++;
         }
 
-        public override void KorCsokkenes()
+
+        public override void korcsokkenes()
         {
-            NyulEletero--;
+            eletero--;
         }
-
-        public static void KorCsokkenes(Nyul nyul)
-        {
-            nyul.NyulEletero--;
-        }
-
-        public int NyulEletero { get; set; }
     }
 }

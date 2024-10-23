@@ -1,6 +1,6 @@
 ﻿namespace SzimulacioTKAMBSLib
 {
-    internal class Fu : Entity
+    public class Fu : Entity
     {
         public Fu(int hossz)
         {
@@ -21,7 +21,7 @@
         {
             FuHossz--;
         }
-        public int FuHossz { get; set; }
 
+        public int FuHossz { get; set; }
     }
 }
