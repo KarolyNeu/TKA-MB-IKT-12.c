@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzimulacioTKAMBS", "SzimulacioTKAMBS\SzimulacioTKAMBS.csproj", "{1F1A1F46-26CC-4A13-BAE0-E1C07E7793B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzimulacioTKAMBSLib", "SzimulacioTKAMBSLib\SzimulacioTKAMBSLib.csproj", "{A621A41B-2D69-4B72-9CD0-9D048F953A07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F1A1F46-26CC-4A13-BAE0-E1C07E7793B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F1A1F46-26CC-4A13-BAE0-E1C07E7793B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F1A1F46-26CC-4A13-BAE0-E1C07E7793B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F1A1F46-26CC-4A13-BAE0-E1C07E7793B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A621A41B-2D69-4B72-9CD0-9D048F953A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A621A41B-2D69-4B72-9CD0-9D048F953A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A621A41B-2D69-4B72-9CD0-9D048F953A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A621A41B-2D69-4B72-9CD0-9D048F953A07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BF1E420-C561-4451-8D9D-0F544046FF19}
+	EndGlobalSection
+EndGlobal
