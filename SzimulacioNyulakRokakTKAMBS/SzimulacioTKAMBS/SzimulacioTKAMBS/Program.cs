@@ -226,5 +226,123 @@ for (int i = 0; i < RokaMennyisegRoka; i++)
 Console.WriteLine("Kérem adja meg a körszámot:");
 int BealitottKorok = int.Parse(Console.ReadLine());
 
+#region  Szimulációs lépések végrehajtása
+for (int Korok = 1; Korok <= BealitottKorok; Korok++)
+{
+    Console.Clear(); // Képernyő törlése minden lépés előtt
+    Console.WriteLine($"Kör: {Korok}");
 
+    int NyulSzamlalas = 0;
+    int RokaSzamlalas = 0;
+
+    for (int i = 0; i < Sorok; i++)
+    {
+        for (int j = 0; j < Oszlopok; j++)
+        {
+            Entity entity = JatekMezo[i, j];
+
+            if (entity != null)
+            {
+                if (entity is Nyul nyul)
+                {
+                    NyulLepes(JatekMezo, nyul, i, j);
+                    NyulSzamlalas++;
+                }
+                else if (entity is Roka roka)
+                {
+                    RokaLepes(JatekMezo, roka, i, j);
+                    RokaSzamlalas++;
+                }
+            }
+        }
+    }
+
+    JatekMezoKiiratasa(JatekMezo);
+    Thread.Sleep(1000);
+
+    // Ellenőrzés: ha nincs több nyúl 
+    if (NyulSzamlalas == 0)
+    {
+        Console.WriteLine("A rókák nyertek, mert nincs több nyúl a pályán.");
+        break;
+    }
+
+    // Ellenőrzés: ha nincs több róka vagy már csak egyetlen egy nyúl maradt
+    if (NyulSzamlalas == 1 && RokaSzamlalas == 0)
+    {
+        Console.WriteLine("A nyulak nyertek, mert nincs több róka a pályán.");
+        break;
+    }
+
+    // Ellenőrzés: ha már csak egyetlen egy nyúl maradt és vége van a köröknek
+    if (NyulSzamlalas == 1 && Korok == BealitottKorok)
+    {
+        Console.WriteLine("A nyulak nyertek, mert vége lett a köröknek és még van egy nyúl.");
+        break;
+    }
+
+    // Ellenőrzés: ha nincs több róka
+    if (RokaSzamlalas == 0)
+    {
+        Console.WriteLine("A nyulak nyertek, mert nincs több róka a pályán.");
+        break;
+    }
+
+}
+#endregion
+
+#region UresMezoKeres
+static void UresMezoKeres(Entity[,] JatekMezo, int x, int y, out int newX, out int newY)
+{
+    Random veletlen = new Random();
+    newX = x;
+    newY = y;
+
+    for (int i = 0; i < 10; i++)
+    {
+        int irany = veletlen.Next(4); // Fel=0 Le=1 Balra=2 Jobbra=3 
+        switch (irany)
+        {
+            case (0): if (x > 0) newX = x - 1; break; // Fel
+            case (1): if (x < JatekMezo.GetLength(0) - 1) newX = x + 1; break; // Le
+            case (2): if (y > 0) newY = y - 1; break; // Balra
+            case (3): if (y < JatekMezo.GetLength(1) - 1) newY = y + 1; break; // Jobbra
+        }
+
+        if (JatekMezo[newX, newY] == null)
+        {
+            return;
+        }
+    }
+}
+#endregion
+#region Játékterület kiíratása
+static void JatekMezoKiiratasa(Entity[,] JatekMezo)
+{
+    for (int i = 0; i < JatekMezo.GetLength(0); i++)
+    {
+        for (int j = 0; j < JatekMezo.GetLength(1); j++)
+        {
+            Entity entity = JatekMezo[i, j];
+            if (entity is Nyul)
+            {
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.Write("N ");
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else if (entity is Roka)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.Write("R ");
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.Write(". ");
+            }
+        }
+        Console.WriteLine();
+    }
+}
+#endregion
 
