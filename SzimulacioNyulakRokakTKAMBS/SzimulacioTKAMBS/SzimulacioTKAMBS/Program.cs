@@ -345,4 +345,52 @@ static void JatekMezoKiiratasa(Entity[,] JatekMezo)
     }
 }
 #endregion
+#region Entitás mozgatása
+static void MozgasMetodus(Entity[,] JatekMezo, Entity entity, int x, int y)
+{
+    int newX, newY;
+    UresMezoKeres(JatekMezo, x, y, out newX, out newY);
+    JatekMezo[x, y] = null;
+    JatekMezo[newX, newY] = entity;
+}
+#endregion
+2 rész
+#region Róka szimulációs lépés
+static void RokaLepes(Entity[,] JatekMezo, Roka roka, int x, int y)
+{
+    // Róka mozgása
+    MozgasMetodus(JatekMezo, roka, x, y);
 
+    // Róka táplálkozása
+    if (roka.eletero > 0)
+    {
+        if (ProbaNyulEves(JatekMezo, x, y))
+        {
+            Console.WriteLine("A róka megette a nyulat.");  // Logolás
+            Roka.NyulEves(roka);
+        }
+
+        // Róka jóllakottságának csökkenése (példány metódus)
+        roka.korcsokkenes(); // Ezt így kell meghívni
+
+        // Róka szaporodása
+        RokaSzaporod(JatekMezo, roka, x, y);
+    }
+}
+#endregion
+
+#region Róka szaporodása
+static void RokaSzaporod(Entity[,] JatekMezo, Roka roka, int x, int y)
+{
+    int UresXMezo, UresYMezo;
+    UresMezoKeres(JatekMezo, x, y, out UresXMezo, out UresYMezo);
+
+    if (JatekMezo[UresXMezo, UresYMezo] == null && roka.eletero >= 8)
+    {
+        Roka ujRoka = new Roka(5);
+        JatekMezo[UresXMezo, UresYMezo] = ujRoka;
+        Console.WriteLine("Egy új róka született.");  // Logolás
+        roka.korcsokkenes(); // Az új róka születésekor a szülő róka jóllakottsága csökken
+    }
+}
+#endregion
