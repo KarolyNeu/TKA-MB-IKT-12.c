@@ -268,23 +268,16 @@ for (int Korok = 1; Korok <= BealitottKorok; Korok++)
     }
 
     // Ellenőrzés: ha nincs több róka vagy már csak egyetlen egy nyúl maradt
-    if (NyulSzamlalas == 1 && RokaSzamlalas == 0)
+    if (RokaSzamlalas == 1)
     {
         Console.WriteLine("A nyulak nyertek, mert nincs több róka a pályán.");
         break;
     }
 
     // Ellenőrzés: ha már csak egyetlen egy nyúl maradt és vége van a köröknek
-    if (NyulSzamlalas == 1 && Korok == BealitottKorok)
+    if (NyulSzamlalas >= 1 && Korok == BealitottKorok)
     {
         Console.WriteLine("A nyulak nyertek, mert vége lett a köröknek és még van egy nyúl.");
-        break;
-    }
-
-    // Ellenőrzés: ha nincs több róka
-    if (RokaSzamlalas == 0)
-    {
-        Console.WriteLine("A nyulak nyertek, mert nincs több róka a pályán.");
         break;
     }
 
